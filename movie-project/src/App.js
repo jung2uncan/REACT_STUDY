@@ -1,54 +1,53 @@
 import React, { Component } from 'react';
 import './App.css';
 
-// import Header from './header';
-
 class App extends Component {
 
-  //JSX와 이벤트
-  testEvent = () => {
-    console.log('Button Clicked!');
-  }
-
-  //state, 현재 컴포넌트의 데이터
+  //App컴포넌트에 생성한 state는, App컴포넌트에서만 업데이트 할 수 있음.
   state = {
-    helloMsg: 'Hello ReactJS!!'
-  }
+    count: 0
+  };
 
-  //state를 변경하는 예제
-  buttonClick() {
-    this.setState({ //state 업데이트를 하려면 무조건 setState라는 메소드를 사용해야만 함.
-      helloMsg: 'Button Clicked!!'
+  countUp() {
+    this.setState({
+      count: this.state.count + 1
     })
   }
 
+  countDown(){
+    this.setState({
+      count: this.state.count - 1
+    });
+  }
+
   render() {
-    const javascriptVatiable = 'javascriptVatiable';
-    const helloCoding = 'helloCoding';
-
-    return (
-      <div className='App' style={{color: 'blue'}}>
-        {/* <Header/> */}
+    return(
+      <div calssName='App'>
+        {/* <div>
+          <span>Current Count : {this.state.count}</span>
+        </div> */}
+        <PropsTestClass count={this.state.count}/>
         <div>
-          {/* Hello ReactJS! */}
-          <span>{this.state.helloMsg}</span>
+          <button onClick={this.countUp.bind(this)}>Count Up!</button>
+          <button onClick={this.countDown.bind(this)}>Count Down!</button>
         </div>
-        <div>
-          {new Date().getDate() < 15 ? javascriptVatiable :  helloCoding}
-        </div>
-
-        {/* 이벤트를 바인딩 시킬 때에는 camelCase 사용해야 함. */}
-        <button onClick={this.buttonClick.bind(this)}>
-          Click me!
-        </button>
       </div>
     )
   }
 }
 
+//props
+class PropsTestClass extends Component {
+  render() {
+    return (
+      <div>
+        <div>
+          <span> Hello I am TestClass </span>
+        </div>
+        <div> 받은 Props의 데이터는 {this.props.count} 입니다. </div>
+      </div>
+    );
+  }
+}
+
 export default App;
-
-// * state, 현재 컴포넌트의 데이터
-// - state는 현재 컴포넌트에서 생성, 변할 수 있는 데이터. state는 오직 state가 생성된 컴포넌트 내에서만 변경이 가능함.
-// - state는 반드시 객체 형태로 생성 되거나 아니면 null (state를 정의하지 않음) 타입이여야만 함.
-
