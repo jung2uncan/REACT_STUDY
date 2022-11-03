@@ -1,35 +1,31 @@
 import React, { Component } from 'react';
 import './App.css';
+import styled from 'styled-components';
+
+const StyledDiv = styled.div`
+  background-color: red;
+  width: 300px;
+  height: 300px;
+`;
+
+const Button = styled.button`
+  background-color: ${props => (props.primary ? ' palevioletred' : 'white')};
+  color: ${props => (props.primary ? 'white' : 'palevioletred')};
+`;
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    console.log('constructor');
-  }
-
-  componentDidMount() {
-    console.log('componentDidMount');
-  }
-
-  componentDidUpdate() {
-    console.log('componentDidUpdate');
-  }
-
-  componentWillUnmount() {
-    console.log('componentWillUnmount');
-  }
-
   render() {
-    console.log('render');
-    return <div className='App'>Life Cycle test</div>;
+    console.log('App: render');
+
+    return (
+      <div className='App'>
+        Life Cycle test
+        <StyledDiv/>
+        <Button>not primary</Button>
+        <Button primary>primary</Button>
+      </div>
+    );
   }
 }
 
 export default App;
-
-
-// 처음 실행 결과
-// constructor > render > componentDidMount
-
-// 컴포넌트가 업데이트 되었을 때 결과
-// render > componentDidUpdate
