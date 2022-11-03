@@ -1,22 +1,35 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import Header from './header/header';
-
 class App extends Component {
-  state = {
-    headerMessage: '영화 소개 프로젝트'
-  };
+  constructor(props) {
+    super(props);
+    console.log('constructor');
+  }
+
+  componentDidMount() {
+    console.log('componentDidMount');
+  }
+
+  componentDidUpdate() {
+    console.log('componentDidUpdate');
+  }
+
+  componentWillUnmount() {
+    console.log('componentWillUnmount');
+  }
 
   render() {
-    return(
-      <div calssName='App'>
-        <Header headerMessage={this.state.headerMessage}/>
-
-        <div>Main Content</div>
-      </div>
-    )
+    console.log('render');
+    return <div className='App'>Life Cycle test</div>;
   }
 }
 
 export default App;
+
+
+// 처음 실행 결과
+// constructor > render > componentDidMount
+
+// 컴포넌트가 업데이트 되었을 때 결과
+// render > componentDidUpdate
