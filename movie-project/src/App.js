@@ -1,28 +1,22 @@
 import React, { Component } from 'react';
 import './App.css';
-import styled from 'styled-components';
 
-const StyledDiv = styled.div`
-  background-color: red;
-  width: 300px;
-  height: 300px;
-`;
+import Data from './data';
 
-const Button = styled.button`
-  background-color: ${props => (props.primary ? ' palevioletred' : 'white')};
-  color: ${props => (props.primary ? 'white' : 'palevioletred')};
-`;
+import Header from './header/header';
+import MovieList from './movie-list/movie-list';
 
 class App extends Component {
-  render() {
-    console.log('App: render');
+  state = {
+    movieData: Data,
+    headerMessage: 'Movie App'
+  };
 
+  render() {
     return (
-      <div className='App'>
-        Life Cycle test
-        <StyledDiv/>
-        <Button>not primary</Button>
-        <Button primary>primary</Button>
+      <div>
+        <Header headerMessage={this.state.headerMessage} />
+        <MovieList movieData={this.state.movieData} />
       </div>
     );
   }
