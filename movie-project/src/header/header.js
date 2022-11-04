@@ -9,7 +9,6 @@ const HeaderDiv = styled.div`
   padding-bottom: 3rem;
   padding-right: 2rem;
   padding-left: 2rem;
-
   > span {
     font-size: 5rem;
     font-weight: bold;

@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { confetti } from 'dom-confetti';
-import './movie-list.js'
 
 import styled from 'styled-components';
 
@@ -86,57 +85,57 @@ const StyledDiv = styled.div`
 `;
 
 class MovieList extends React.Component {
-    domConfettiRefs = this.props.movieData.map(() => React.createRef()); //props로 받은 영화의 리스트 만큼 createRef를 생성
-    //Ref를 만들기 위해서는 반드시 createRef()가 실행된 프로퍼티에만 담을 수 있음.
+  domConfettiRefs = this.props.movieData.map(() => React.createRef()); //props로 받은 영화의 리스트 만큼 createRef를 생성
+  //Ref를 만들기 위해서는 반드시 createRef()가 실행된 프로퍼티에만 담을 수 있음.
 
-    showParadise = idx => {
-        confetti(this.domConfettiRefs[idx].current); //(가지고 온 ref 요소). current가 DOM 요소
+  showParadise = idx => {
+    confetti(this.domConfettiRefs[idx].current); //(가지고 온 ref 요소). current가 DOM 요소
+  };
+
+  render() {
+    const convertEnterToLine = someString => {
+      const strings = someString.split('\n');
+            
+      return strings.map((values, idx) => {
+        return <span key={idx}>{values}</span>;
+      });
     };
 
-    render() {
-        const convertEnterToLine = someString => {
-            const strings = someString.split('\n');
-            
-            return strings.map((values, idx) => {
-                return <span key={idx}>{values}</span>;
-            });
-        };
+    const showGenre = genres => {
+        return genres.map((genre, idx) => {
+            return <span key={idx}>{genre}</span>;
+        });
+    };
 
-        const showGenre = genres => {
-            return genres.map((genre, idx) => {
-                return <span key={idx}>{genre}</span>;
-            });
-        };
+    const renderMovieList = lists => {
+      return lists.map((unit, idx) => {
+        return (
+          <StyledDiv key={idx} backgroundImage={unit.image} likeImage={'/images/like.svg'}>
+            <span className="title">{unit.movieNmae}</span>
+            <div className="genre">{showGenre(unit.genre)}</div>
+            <span classNmae="sub">{unit.releaseDate === null ? '미개봉' : `${unit.releaseDate} 개봉`}</span>
+            {unit.releaseDate != null && (
+                <span className="sub">
+                    {`누적 관객 수: ${numeral(unit.totalAudience).format('0.0')}명 (${unit.grade}/10)`}
+                </span>
+            )}
 
-        const renderMovieList = lists => {
-            return lists.map((unit, idx) => {
-                return (
-                    <StyledDiv key={idx} backgroundImage={unit.image} likeImage={'/images/like.svg'}>
-                        <span className="title">{unit.movieNmae}</span>
-                        <div className="genre">{showGenre(unit.genre)}</div>
-                        <span classNmae="sub">{unit.releaseDate === null ? '미개봉' : `${unit.releaseDate} 개봉`}</span>
-                        {unit.releaseDate != null && (
-                            <span className="sub">
-                                {`누적 관객 수: ${numeral(unit.totalAudience).format('0.0')}명 (${unit.grade}/10)`}
-                            </span>
-                        )}
+            <div className="sub-introduce">{convertEnterToLine(unit.subIntro)}</div>
+            <div className="like-button">
+              <span
+              ref={this.domConfettiRefs[idx]} //ref 연결
+              onClick={()=> {
+                this.showParadise(idx);
+              }}
+              />
+            </div>
+          </StyledDiv>
+        );
+      });
+    };
 
-                        <div className="sub-introduce">{convertEnterToLine(unit.subIntro)}</div>
-                        <div className="like-button">
-                            <span
-                                ref={this.domConfettiRefs[idx]} //ref 연결
-                                onClick={()=> {
-                                    this.showParadise(idx);
-                                }}
-                            />
-                        </div>
-                    </StyledDiv>
-                );
-            });
-        };
-
-        return <div>{renderMovieList(this.props.movieData)}</div>
-    }
+    return <div>{renderMovieList(this.props.movieData)}</div>
+  }
 }
 
 export default MovieList;

@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import Data from './data';
+import data from './data.json';
 
 import Header from './header/header';
 import MovieList from './movie-list/movie-list';
 
 class App extends Component {
   state = {
-    movieData: Data,
+    movieData: data.data,
     headerMessage: 'Movie App'
   };
 
   render() {
+    // console.log(this.state)
     return (
       <div>
         <Header headerMessage={this.state.headerMessage} />
