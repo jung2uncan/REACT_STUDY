@@ -1,0 +1,11 @@
+#note-list-container {
+    height: 100%;
+    overflow-y: auto;
+    background-color: rgb(245, 245, 231);
+  
+    #note-list {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 1rem;
+    }
+  }
