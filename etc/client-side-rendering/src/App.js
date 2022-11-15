@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import { Switch, Route, Routes, Link, NavLink } from 'react-router-dom';
-import { Route, Routes, NavLink } from 'react-router-dom';
+import { Route, Routes, NavLink, useNavigate, useParams, useLocation } from 'react-router-dom';
 import './App.css';
 
 import Home from './components/home';
@@ -9,6 +9,21 @@ import Second from './components/second';
 import Main from './components/main';
 
 class App extends Component {
+  // useParams: 현재 페이지 경로에 포함된 파라미터값
+  // useLocation : 현재 페이지 경로 - URL이 달라질 때마다 이벤트가 호출 됨
+  // useNavigate : 페이지 변경가능 (뒤로/앞으로/특정페이지)
+  // params = useParams(); // params.id 이런식으로 파라미터 접근
+  // location = useLocation(); // location.pathname 이런식으로 주소접근
+  // navigate = useNavigate(); // navigate('/') 이런식으로 이동
+  
+  // go = () => {
+  //   this.props.history.go(1);
+  // };
+
+  // goBack = () => {
+  //   this.props.history.goBack();
+  // }
+
   render () {
     const activeStyle = {
       backgroud: 'black',
@@ -18,6 +33,10 @@ class App extends Component {
     return (
       <div className='App'>
         클라이언트 사이드 렌더링
+        {/* <div>
+          <button onClick={this.go}>뒤로 가기</button>
+          <button onClick={this.goBack}>앞으로 가기</button>
+        </div> */}
         {/* Link 태그를 이용한 페이지 이동 */}
         <div>
           <ul className="link-list">
@@ -62,4 +81,5 @@ class App extends Component {
   }
 }
 
+//export default App;
 export default App;
