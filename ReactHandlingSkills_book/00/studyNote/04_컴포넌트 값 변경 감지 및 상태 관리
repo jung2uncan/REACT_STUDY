@@ -20,11 +20,11 @@ inputs[name] = value;
 ₩₩₩
 
 새로운 객체를 만들어서 새로운 객체에 변화를 주고, 이를 상태로 사용해야 함.
-예) 
-setInputs({
-  ...inputs,
-  [name]: value
-});
+  예) 
+  setInputs({
+    ...inputs,
+    [name]: value
+  });
 
 >> 여기서 ... 문법은 spread문법이다. 객체의 모든 내용을 '펼쳐서' 기존 객체를 복사하는 것이다. 기존 값을 그대로 복사 하며, 이를 "불변성을 지킨다" 라고 부른다. 불변성을 지켜주어야만 리액트 컴포넌트에서 상태가 업데이트가 됐음을 감지 할 수 있고 이에 따라 필요한 리렌더링이 진행된다.
 참고 : https://learnjs.vlpt.us/useful/07-spread-and-rest.html
