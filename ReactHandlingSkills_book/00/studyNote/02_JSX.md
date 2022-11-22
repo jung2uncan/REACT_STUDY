@@ -1,0 +1,66 @@
+2. JSX
+2.2 JSX란?
+  - JSX는 자바스크립트의 확장 문법이며 XML과 비슷하게 생겼음. 이 코드는 브라우저에서 실행되기 전에 코드가 번들링되는 과정에서 바벨을 사용하여 일반 자바스크립트 형태의 코드로 변환됨.
+	
+	* 코드 이해하기
+	const root = ReactDOM.createRoot(document.getElementById('root'));
+	root.render(
+		 //JSX 코드
+	 	<React.StrictMode>
+    			<App />
+  		</React.StrictMode>
+	);
+
+
+	: public/index.html 파일 내 id가 ‘root’인 요소에 해당 JSX 코드를 렌더링(보여준다)하겠다는 의미.
+
+2.4 JSX 문법
+2.4.1 감싸인 요소
+  - 컴포넌트에 여러 요소가 있으면 반드시 부모 요소 하나로 감싸야 함.
+	: Virtual DOM에서 컴포넌트의 변화를 감지해 낼 때 효율적으로 비교할 수 있도록 컴포넌트 내부는 하나의 DOM 트리 구조로 	  이루어져야 한다는 규칙이 있음.
+
+	최상위를 <div></div>로 감싸거나, 리액트 버전 16이상이면 <Fragment></Fragment>, <></>로 감쌀 수 있음.
+
+
+2.4.2  자바스크립트 표현
+   - JSX안에서 자바스크립트 표현식을 작성하려면 JSX 내부에서 코드를 {}로 감싸면 됨.
+
+2.4.3  IF문 대신 조건부 연산자
+   - JSX 내부의 자바스크립트 표현식에는 if문을 사용할 수 없음. 따라서, 조건에 따른 렌더링을 해야할 때는 JSX 밖에서 if문을 사용하여 사전에 값을 설정하거나, {}안에 조건부 연산자(삼항 연산자)를 사용하면 됨.
+
+2.4.4 AND 연산자(&&)를 사용한 조건부 렌더링
+
+* 코드 예시
+  const name = '리액트';
+  const undefinedTest = undefined;
+  const undefinedTest2 = '테스트';
+  return (
+    <>
+      {name === '리액트' ? (<h1>리액트입니다.</h1>) : (<h2>리액트가 아닙니다.</h2>)}   {/*결과 : 리액트입니다.*/}
+      <div> {name === '리액트' && <h1>&&연산자 테스트</h1>}</div>                 {/*결과 : &&연산자 테스트*/}
+      <div> 결과 : { undefinedTest} </div>                                    {/*결과 : 안나옴(빈 값. 즉, 렌더링 안됨) */}
+      <div> { undefinedTest || '언디파인드' }</div>                             {/*결과 : 언디파인드 */}
+      <div> { undefinedTest2 || '낫 언디파인드' }</div>                          {/*결과 : "테스트"*/}
+    </>
+  )
+
+
+2.4.6 인라인 스타일링
+  - 리액트에서 DOM 요소에 스타일을 적용할 때는 문자열 형태로 넣는 것이 아닌 객체 형채로 넣어줘야 함.
+	또한, font-size처렁 ‘-‘문자가 포함되는 이름은 CamelCase로 작성해야함. > fontSize
+
+* 코드 예시
+  const style = {
+    backgroundColor: 'black',
+    color: 'aqua',
+    fontSize: '30px',
+  }
+  return (
+    <div style={style}>
+      {name}
+    </div>
+  )
+
+
+2.4.7 class 대신 className
+   - JSX에서는 class 속성을 설정할 때, className으로 설정함.
