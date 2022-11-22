@@ -1,33 +1,33 @@
-import React, { Fragment } from "react";
-import "./App.css";
+import React, { Fragment } from 'react';
+import './App.css';
 
 function App() {
-  const name = "리액트";
+  const name = '리액트';
   const undefinedTest = undefined;
-  const undefinedTest2 = "테스트";
+  const undefinedTest2 = '테스트';
 
   const style = {
     //background-color는 backgroundColor와 같이 -가 사라지고 카멜 표기법으로 작성한다.
-    backgroundColor: "black",
-    color: "aqua",
-    fontSize: "30px",
-    fontWeight: "bold",
+    backgroundColor: 'black',
+    color: 'aqua',
+    fontSize: '30px',
+    fontWeight: 'bold',
     padding: 16, //단위 생략시 px
   };
   return (
     <>
-      {name === "리액트" ? <h1>리액트입니다.</h1> : <h2>리액트가 아닙니다.</h2>}{" "}
+      {name === '리액트' ? <h1>리액트입니다.</h1> : <h2>리액트가 아닙니다.</h2>}{' '}
       {/*결과 : 리액트입니다.*/}
       <div style={style}>
-        {" "}
-        {name === "리액트" && <h1>&&연산자 테스트</h1>}
-      </div>{" "}
+        {' '}
+        {name === '리액트' && <h1>&&연산자 테스트</h1>}
+      </div>{' '}
       {/*결과 : &&연산자 테스트*/}
-      <div style={style}> 결과 : {undefinedTest} </div>{" "}
+      <div style={style}> 결과 : {undefinedTest} </div>{' '}
       {/*결과 : 안나옴(빈 값. 즉, 렌더링 안됨) */}
-      <div className="react"> {undefinedTest || "언디파인드"}</div>{" "}
+      <div className="react"> {undefinedTest || '언디파인드'}</div>{' '}
       {/*결과 : 언디파인드 */}
-      <div className="react"> {undefinedTest2 || "낫 언디파인드"}</div>{" "}
+      <div className="react"> {undefinedTest2 || '낫 언디파인드'}</div>{' '}
       {/*결과 : "테스트"*/}
     </>
   );
