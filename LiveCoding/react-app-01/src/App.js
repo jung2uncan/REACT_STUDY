@@ -155,25 +155,43 @@ function App() {
       }
     }
     content = <Article title={title} body={body}></Article>;
+
+    //mode가 READ인 경우에만, update 링크 표시되도록 설정
     contextControl = (
-      <li>
-        <a
-          href={"/update/" + id}
-          onClick={(event) => {
-            event.preventDefault();
-            setMode("UPDATE");
-          }}
-        >
-          Update
-        </a>
-      </li>
+      <>
+        <li>
+          <a
+            href={"/update/" + id}
+            onClick={(event) => {
+              event.preventDefault();
+              setMode("UPDATE");
+            }}
+          >
+            Update
+          </a>
+        </li>
+        <li>
+          <input
+            type="button"
+            value="Delete"
+            onClick={(event) => {
+              const newTopics = [];
+              for (let i = 0; i < topics.length; i++) {
+                if (topics[i].id !== id) {
+                  newTopics.push(topics[i]);
+                }
+              }
+              setTopics(newTopics);
+              setMode("WELCOME");
+            }}
+          ></input>
+        </li>
+      </>
     );
   } else if (mode === "CREATE") {
     content = (
       <Create
         onCreate={(_title, _body) => {
-          console.log("title : ", _title);
-          console.log("body : ", _body);
           const newTopic = { id: nextId, title: _title, body: _body };
 
           const newTopics = [...topics]; //객체 복제
@@ -199,8 +217,8 @@ function App() {
         title={title}
         body={body}
         onUpdate={(_title, _body) => {
-          console.log("변경된 title : ", _title);
-          console.log("변경된 body : ", _body);
+          //console.log("변경된 title : ", _title);
+          // console.log("변경된 body : ", _body);
           const updatedTopic = { id: id, title: _title, body: _body };
 
           const newTopics = [...topics]; //객체 복제
