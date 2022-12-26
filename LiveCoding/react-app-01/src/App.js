@@ -58,17 +58,43 @@ function Article(props) {
   );
 }
 
+function Create(props) {
+  return (
+    <article>
+      <h2>Create</h2>
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+          const title = event.target.title.value;
+          const body = event.target.body.value;
+          props.onCreate(title, body);
+        }}
+      >
+        <p>
+          <input type="text" name="title" placeholder="Title" />
+        </p>
+        <p>
+          <textarea name="body" placeholder="Body" />
+        </p>
+        <p>
+          <input type="submit" value="Create"></input>
+        </p>
+      </form>
+    </article>
+  );
+}
+
 function App() {
   // useState 의 인자는 데이터의 초기값.
   // useState의 반환 값 [데이터 상태 값, 데이터 변경 set함수]
   const [mode, setMode] = useState("WELCOME");
   const [id, setId] = useState(null);
-
-  const topics = [
+  const [nextId, setNextId] = useState(4);
+  const [topics, setTopics] = useState([
     { id: 1, title: "html", body: "html is ..." },
     { id: 2, title: "css", body: "css is ..." },
     { id: 3, title: "javascript", body: "javascript is ..." },
-  ];
+  ]);
 
   let content = null;
   if (mode === "WELCOME") {
@@ -83,6 +109,23 @@ function App() {
       }
     }
     content = <Article title={title} body={body}></Article>;
+  } else if (mode === "CREATE") {
+    content = (
+      <Create
+        onCreate={(_title, _body) => {
+          console.log("title : ", _title);
+          console.log("body : ", _body);
+          const newTopic = { id: nextId, title: _title, body: _body };
+
+          const newTopics = [...topics]; //객체 복제
+          newTopics.push(newTopic);
+          setTopics(newTopics);
+          setMode("READ");
+          setId(nextId);
+          setNextId(nextId + 1);
+        }}
+      ></Create>
+    );
   }
 
   return (
@@ -102,6 +145,15 @@ function App() {
       ></Nav>
       {/* 배열을 props로 넘겨줄 때, { 배열명 } 포맷으로 넘김  */}
       {content}
+      <a
+        href="/create"
+        onClick={(event) => {
+          event.preventDefault();
+          setMode("CREATE");
+        }}
+      >
+        Create
+      </a>
     </div>
   );
 }
