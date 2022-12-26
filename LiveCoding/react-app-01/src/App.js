@@ -84,6 +84,50 @@ function Create(props) {
   );
 }
 
+function Update(props) {
+  const [title, setTitle] = useState(props.title);
+  const [body, setBody] = useState(props.body);
+
+  return (
+    <article>
+      <h2>Update</h2>
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+          const title = event.target.title.value;
+          const body = event.target.body.value;
+          props.onUpdate(title, body);
+        }}
+      >
+        <p>
+          <input
+            type="text"
+            name="title"
+            value={title}
+            onChange={(event) => {
+              //console.log(event.target.value);
+              setTitle(event.target.value);
+            }}
+          />
+        </p>
+        <p>
+          <textarea
+            name="body"
+            value={body}
+            onChange={(event) => {
+              //console.log(event.target.value);
+              setBody(event.target.vlaue);
+            }}
+          />
+        </p>
+        <p>
+          <input type="submit" value="Update"></input>
+        </p>
+      </form>
+    </article>
+  );
+}
+
 function App() {
   // useState 의 인자는 데이터의 초기값.
   // useState의 반환 값 [데이터 상태 값, 데이터 변경 set함수]
@@ -97,6 +141,8 @@ function App() {
   ]);
 
   let content = null;
+  let contextControl = null;
+
   if (mode === "WELCOME") {
     content = <Article title="Welcome" body="Hello, WEB!"></Article>;
   } else if (mode === "READ") {
@@ -109,6 +155,19 @@ function App() {
       }
     }
     content = <Article title={title} body={body}></Article>;
+    contextControl = (
+      <li>
+        <a
+          href={"/update/" + id}
+          onClick={(event) => {
+            event.preventDefault();
+            setMode("UPDATE");
+          }}
+        >
+          Update
+        </a>
+      </li>
+    );
   } else if (mode === "CREATE") {
     content = (
       <Create
@@ -125,6 +184,37 @@ function App() {
           setNextId(nextId + 1);
         }}
       ></Create>
+    );
+  } else if (mode === "UPDATE") {
+    let title = null;
+    let body = null;
+    for (let i = 0; i < topics.length; i++) {
+      if (topics[i].id === id) {
+        title = topics[i].title;
+        body = topics[i].body;
+      }
+    }
+    content = (
+      <Update
+        title={title}
+        body={body}
+        onUpdate={(_title, _body) => {
+          console.log("변경된 title : ", _title);
+          console.log("변경된 body : ", _body);
+          const updatedTopic = { id: id, title: _title, body: _body };
+
+          const newTopics = [...topics]; //객체 복제
+          for (let i = 0; i < newTopics.length; i++) {
+            if (newTopics[i].id === id) {
+              newTopics[i] = updatedTopic;
+              break;
+            }
+          }
+
+          setTopics(newTopics);
+          setMode("READ");
+        }}
+      ></Update>
     );
   }
 
@@ -145,15 +235,20 @@ function App() {
       ></Nav>
       {/* 배열을 props로 넘겨줄 때, { 배열명 } 포맷으로 넘김  */}
       {content}
-      <a
-        href="/create"
-        onClick={(event) => {
-          event.preventDefault();
-          setMode("CREATE");
-        }}
-      >
-        Create
-      </a>
+      <ul>
+        <li>
+          <a
+            href="/create"
+            onClick={(event) => {
+              event.preventDefault();
+              setMode("CREATE");
+            }}
+          >
+            Create
+          </a>
+        </li>
+        {contextControl}
+      </ul>
     </div>
   );
 }
