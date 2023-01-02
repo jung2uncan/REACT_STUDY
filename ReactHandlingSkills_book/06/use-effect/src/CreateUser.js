@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 function CreateUser({ username, email, onChange, onCreate }) {
   return (
@@ -20,4 +20,5 @@ function CreateUser({ username, email, onChange, onCreate }) {
   );
 }
 
-export default CreateUser;
+////React.memo() : 컴포넌트에서 리렌더링이 필요한 상황에서만 리렌더링을 하도록 설정.
+export default React.memo(CreateUser);

@@ -12,6 +12,7 @@ function User({ user, onRemove, onToggle }) {
 
   // deps 파라미터 생략하기
   useEffect(() => {
+    console.log("UserList 렌더링 됨");
     console.log(user);
   });
 
@@ -48,4 +49,5 @@ function UserList({ users, onRemove, onToggle }) {
   );
 }
 
-export default UserList;
+//React.memo() : 컴포넌트에서 리렌더링이 필요한 상황에서만 리렌더링을 하도록 설정.
+export default React.memo(UserList);
