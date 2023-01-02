@@ -1,70 +1,58 @@
-# Getting Started with Create React App
+- useReducer 이해하기
+  : 컴포넌트의 상태 업데이트 로직을 컴포넌트에서 분리시킬 수 있음.
+  상태 업데이트 로직을 컴포넌트 바깥에 작성할 수도 있고, 다른 파일에 작성 후 불러와서 사용도 가능함.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- reducer란?
+  : 현재 상태와 액션 객체를 파라미터로 받아와서 새로운 상태를 반환해주는 함수.
+  reducer에서 반환하는 상태는 곧 컴포넌트가 지닐 새로운 상태가 됨.
 
-## Available Scripts
+```
+//예시
+function reducer(state, action) {
+  // 새로운 상태를 만드는 로직
+  // const nextState = ...
+  return nextState;
+}
+```
 
-In the project directory, you can run:
+action은 업데이트를 위한 정보를 포함하고 있으며, 주로 'type'값을 지닌 객체 형태로 사용하지만, 정해진 규칙은 아니다. 즉, 객체의 형태는 자유롭게 정의 가능함.
 
-### `npm start`
+```
+ex)
+// 카운터에 1을 더하는 액션
+{
+  type: 'INCREMENT'
+}
+// 카운터에 1을 빼는 액션
+{
+  type: 'DECREMENT'
+}
+// input 값을 바꾸는 액션
+{
+  type: 'CHANGE_INPUT',
+  key: 'email',
+  value: 'test@react.com'
+}
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- useReducer의 사용 방법
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+  1. state?
+     : 앞으로 컴포넌트에서 사용할 수 있는 상태
+  2. dispatch?
+     : 액션을 발생시키는 함수. 사용 예) dispatch({ type: 'INCREMENT' })
+  3. reducer?
+     : userReducer에 넣는 첫 번째 파라미터 reducer '함수'
+  4. initialState?
+     : 초기 상태
 
-### `npm test`
+- useReducer vs useState 뭘 써야할까?
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* useState 가 편한 경우
+  : 컴포넌트에서 관리하는 값이 딱 하나고, 그 값이 단순한 숫자, 문자열 또는 boolean 값일 때.
 
-### `npm run build`
+       ex) const [value, setValue] = useState(true);
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+* useReducer가 편한 경우
+  : 컴포넌트에서 관리하는 값이 여러개가 되어서 상태의 구조가 복잡할 때

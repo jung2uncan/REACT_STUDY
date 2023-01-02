@@ -1,70 +1,60 @@
-# Getting Started with Create React App
+- props를 통해 컨포넌트에게 값 전달하기
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+* props란?
+  : properties의 약자로, 어떠한 값을 컴포넌트에세 전달해줘야할 때 사용함.
 
-## Available Scripts
+  예)
 
-In the project directory, you can run:
+  - App.js
+    function App() {
+    return <Hello name="react" />;
+    }
 
-### `yarn start`
+  - Hello.js
+    function Hello(props) {
+    return <div>안녕하세요 {props.name}</div>;
+    }
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+컴포넌트에게 전달되는 props는 파라미터를 통하여 조회할 수 있음. props는 객체 형태로 전달되며, 값을 받은 컴포넌트에서 조회시 props.name과 같이 조회할 수 있음.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- props.children?
+  : 컴포넌트 태그 사이에 넣은 값을 조회하고 싶을 때 사용.
 
-### `yarn test`
+  예)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  - App.js
+    function App() {
+    return (
+    <Wrapper>
+    <Hello name="react" />
+    </Wrapper>
+    );
+    }
 
-### `yarn build`
+  - Wrapper.js
+    function Wrapper({ children }) {
+    const style = {
+    border: "2px solid black",
+    padding: "16px",
+    };
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+        return <div style={style}>{children}</div>;
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    }
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- 조건부 렌더링?
+  : 특정 조건에 따라 다른 결과물을 렌더링 하는 것.
+  참고로 JSX 에서 null, false, undefined 를 렌더링하게 된다면 아무것도 나타나지 않음.
+  props의 값을 설정하게 될 때 props 이름만 작성하고, 값 설정을 생략한다면 기본 값은 "true".
 
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+  - 단축 평가 논리 계산법!
+    : A && B 일 때, A값이 true면 B값 반환, A값이 False면 A값 반환
+    console.log(true && 'hello'); // hello
+    console.log(false && 'hello'); // false
+    console.log('hello' && 'bye'); // bye
+    console.log(null && 'hello'); // null
+    console.log(undefined && 'hello'); // undefined
+    console.log('' && 'hello'); // ''
+    console.log(0 && 'hello'); // 0
+    console.log(1 && 'hello'); // hello
+    console.log(1 && 1); // 1

@@ -1,70 +1,52 @@
-# Getting Started with Create React App
+mount : 컴포넌트가 처음 나타났을 때
+unmount : 컴포넌트가 사라질 때
+update : 특정 props값이 바뀔 때
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
 
-## Available Scripts
+- useEffect란?
 
-In the project directory, you can run:
+예시)
+useEffect(() => {
+console.log("컴포넌트가 화면에 나타남!");
+return () => {
+console.log("컴포넌트가 화면에서 사라짐!");
+};
+}, []);
 
-### `npm start`
+- useEffect(함수, [배열(deps)])
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+  > > useEffect를 사용할 때, 첫번째 인자(effect)는 함수, 두번째 인자는 배열(deps).
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+  -. deps에 빈 배열([]): 처음에만 정의된 함수 호출
+  -. deps에 의존값 존재 ([deps]): 처음과 지정값이 변경될 때 호출
+  -. deps가 아예 없는 경우 (): 컴포넌트가 리렌더링 될 때마다 호출
 
-### `npm test`
+\*\* useEffect 안에서 사용하는 상태나, props가 있다면, useEffect의 deps에 넣어주어야 함.
+넣지 않는다면, useEffect에 등록한 함수가 실행될 때 최신 props상태를 가르키지 않게 됨.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+useEffect에서 함수를 반환할 수 있는데 이를 'cleanup'함수라고 함.
+'cleanup'함수는 useEffect에 대한 뒷정리를 함. deps가 비어있는 경우에는 컴포넌트가 사라질 때 'cleanup'함수가 호출됨.
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- useMemo란?
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+* 성능 최적화 시 사용
+* memo는 memorized의 약자이다. (이전에 계산 한 값을 재사용)
+* 첫번째 인수에는 파라미터 함수, 두번째 인수에는 deps 배열(변경X-> 이전에 연산한 값을 재사용)을 넣어주면 된다.
+  두번째 인수에 넣어준 배열의 값이 바뀔때만 함수가 실행된다.
+  그렇지 않다면 이전의 값을 재사용한다.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+- useCallback이란?
+  : useMemo는 '특정 결과 값'을 재사용할 때 사용하는 반면, useCallback은 '특정 함수'를 새로 만들지 않고 재사용하고 싶을 때 사용.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- 주의 \* 함수 안에서 사용하는 상태 혹은 props 가 있다면 꼭, deps 배열안에 포함시켜야 함. deps 배열 안에 함수에서 사용하는 값을 넣지 않게 된다면, 함수 내에서 해당 값들을 참조할때 가장 최신 값을 참조 할 것이라고 보장 할 수 없음.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- React.memo
+  : 컴포넌트의 props가 바뀌지 않았다면, 리렌더링을 방지하여 컴포넌트의 리렌더링 성능 최적화를 해주는 함수
+  컴포넌트에서 리렌더링이 필요한 상황에서만 리렌더링을 하도록 설정할 수 있음.
