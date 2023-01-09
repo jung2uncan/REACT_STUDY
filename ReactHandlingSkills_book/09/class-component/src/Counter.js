@@ -9,16 +9,16 @@ class Counter extends Component {
   handleIncrease = () => {
     console.log("INCREASE!");
     console.log(this);
-    this.setState({
-      counter: this.state.counter + 1,
-    });
+    this.setState((state) => ({
+      counter: state.counter + 1,
+    }));
   };
 
   handleDecrease = () => {
     console.log("DECREASE!");
-    this.setState({
-      counter: this.state.counter - 1,
-    });
+    this.setState((state) => ({
+      counter: state.counter - 1,
+    }));
   };
 
   render() {
