@@ -1,0 +1,81 @@
+- Immer를 사용한 더 쉬운 불변성 관리하기
+리액트에서 배열이나 객체를 업데이트 해야 할 때에는 '직접 수정 하면 안되고 불변성을 지켜주면서 업데이트'를 해주어야 함.
+
+ex)
+
+const object = {
+  a: 1,
+  b: 2
+};
+
+object.b = 3;   //이렇게 값을 직접 변경하면 안됨.
+
+const nextObject = {
+  ...object,
+  b: 3
+};  //이런식으로, 원본의 불변성을 유지해야 함. (...연산자 사용)
+
+- 배열도 마찬가지로, push, splice 등의 함수를 사용하거나 n 번째 항목을 직접 수정하면 안되고, concat, filter, map 등의 함수를 사용해야 함.
+Ex)
+const todos = [
+  {
+    id: 1,
+    text: '할 일 #1',
+    done: true
+  },
+  {
+    id: 2
+    text: '할 일 #2',
+    done: false
+  }
+];
+
+//추가
+const inserted = todos.concat({
+  id: 3,
+  text: '할 일 #3',
+  done: false
+});
+
+//삭제
+const filtered = todos.filter(todo => todo.id !== 2);
+
+//수정
+const toggled = todos.map(
+  todo => todo.id === 2
+    ? {
+      ...todo,
+      done: !todo.done,
+    }
+    : todo
+);
+
+===========================================================================
+Immer 사용법
+
+1) 프로젝트에 Immer 설치
+```
+yarn add immer
+```
+
+2) 코드 상단에 import. 보통 produce라는 이름으로 불러옴. 
+```
+import produce from 'immer';
+```
+
+3) produce 함수를 사용 할 때에는 첫번째 파라미터에는 수정하고 싶은 상태, 두번째 파라미터에는 어떻게 업데이트하고 싶을지 정의하는 함수를 넣어줌
+```
+const state = {
+  number: 1,
+  dontChangeMe: 2
+};
+
+const nextState = produce(state, draft => {
+  draft.number += 1;
+});
+
+console.log(nextState);
+// { number: 2, dontChangeMe: 2 }
+```
+
+===========================================================================
