@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Routes, Link } from "react-router-dom";
 import About from "./About";
 import Home from "./Home";
-import Profile from "./Profile";
+import Profiles from "./Profiles";
 
 const App = () => {
   return (
@@ -14,12 +14,15 @@ const App = () => {
         <li>
           <Link to="/about">About</Link>
         </li>
+        <li>
+          <Link to="/profiles">프로필 목록</Link>
+        </li>
       </ul>
       <hr />
       <Routes>
         <Route path="/" exact={true} element={<Home />} />{" "}
         <Route path="/about" element={<About />} />
-        <Route path="/profiles/:username" element={<Profile />} />
+        <Route path="/profiles/*" element={<Profiles />} />
       </Routes>
     </>
   );
