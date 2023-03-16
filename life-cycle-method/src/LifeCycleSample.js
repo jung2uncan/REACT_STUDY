@@ -52,7 +52,7 @@ class LifeCycleSample extends Component {
   componentDidUpdate(prevProps, prevState, snapshot) {
     console.log("componentDidUpdate : ", prevProps, prevState);
     if (snapshot) {
-      console.log("업데이트되지 직전 색상 : ", snapshot);
+      console.log("업데이트되기 직전 색상 : ", snapshot);
     }
   }
 
@@ -62,8 +62,10 @@ class LifeCycleSample extends Component {
     const style = {
       color: this.props.color,
     };
+
     return (
       <div>
+        {this.props.missing.value}
         <h1 style={style} ref={(ref) => (this.myRef = ref)}>
           {this.state.number}
         </h1>
