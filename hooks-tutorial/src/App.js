@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import Counter from "./Counter";
 import Info from "./Info";
+import Average from "./Average";
 
 const App = () => {
   const [visible, setVisible] = useState(false);
 
   return (
     <div>
-      <p>
+      <div>
         ===============<b>실습1</b>===============
         <Counter />
-      </p>
-      <p>
+      </div>
+
+      <div>
         ===============<b>실습2</b>===============
         <div>
           <button
@@ -21,10 +23,15 @@ const App = () => {
           >
             {visible ? "숨기기" : "보이기"}
           </button>
-          <hr />
+          <br />
           {visible && <Info />}
         </div>
-      </p>
+      </div>
+
+      <div>
+        ===============<b>실습3</b>===============
+        <Average />
+      </div>
     </div>
   );
 };
