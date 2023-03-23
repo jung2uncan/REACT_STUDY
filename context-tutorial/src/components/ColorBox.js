@@ -1,4 +1,3 @@
-import ColorContext from "../contexts/color";
 import { ColorConsumer } from "../contexts/color";
 
 const ColorBox = () => {
