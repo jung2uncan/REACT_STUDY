@@ -1,6 +1,15 @@
 import { ColorConsumer } from "./color";
 
-const colors = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"];
+const colors = [
+  "black",
+  "red",
+  "orange",
+  "yellow",
+  "green",
+  "blue",
+  "indigo",
+  "violet",
+];
 
 const SelectColors = () => {
   return (
