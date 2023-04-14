@@ -25,8 +25,6 @@ export default connect(
     number: state.counter,
   }),
   {
-    // increase,
-    // decrease,
     increaseAsync,
     decreaseAsync,
   }
